@@ -85,9 +85,13 @@ digits n = digitsOfIntGood (abs n)
 -- 2
 
 additivePersistence :: Int -> Int
-additivePersistence n = if (sumList (digitsOfInt n) > 9) 
-                        then 1 + additivePersistence (sumList (digitsOfInt n)) 
+additivePersistenceRecursion :: Int -> Int
+additivePersistence n = if n > 9
+                        then additivePersistenceRecursion n 
                         else 0
+additivePersistenceRecursion m = if (sumList (digitsOfInt m) > 9) 
+                        then 1 + additivePersistenceRecursion (sumList (digitsOfInt m)) 
+                        else 1
                         
 
 -- | digitalRoot n is the digit obtained at the end of the sequence
@@ -100,9 +104,13 @@ additivePersistence n = if (sumList (digitsOfInt n) > 9)
 -- 9
 
 digitalRoot :: Int -> Int
-digitalRoot n = if (sumList (digitsOfInt n) > 9) 
-                        then additivePersistence (sumList (digitsOfInt n)) 
-                        else sumList (digitsOfInt n)
+digitalRootRecursion :: Int -> Int
+digitalRoot n = if n > 9 
+                        then digitalRootRecursion n
+                        else n
+digitalRootRecursion m = if (sumList (digitsOfInt m) > 9)
+                        then digitalRootRecursion (sumList (digitsOfInt m))
+                        else (sumList (digitsOfInt m))
 
 
 -- | listReverse [x1,x2,...,xn] returns [xn,...,x2,x1]
